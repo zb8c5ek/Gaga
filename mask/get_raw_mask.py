@@ -11,6 +11,7 @@ from typing import Dict
 from argparse import ArgumentParser
 from tqdm import tqdm
 import json
+from pathlib import Path
 
 def get_n_different_colors(n: int) -> np.ndarray:
     np.random.seed(0)
@@ -187,6 +188,7 @@ if __name__ == "__main__":
     print("Generating masks...")
     for image_name in tqdm(sorted(os.listdir(image_folder))):
         image_path = os.path.join(image_folder, image_name)
+        fp_image = Path(image_path)
         if args.seg_method == "sam":
             image = cv2.imread(image_path)
             mask = get_sam_mask(seg_model, image, config["confidence_threshold"])
@@ -202,10 +204,10 @@ if __name__ == "__main__":
             raise NotImplementedError
 
         # mask_path = os.path.join(output_folder, image_name.replace(".jpg", ".png"))
-        mask_path = os.path.join(output_folder, image_name.split(".")[0] + ".png")
+        mask_path = os.path.join(output_folder, fp_image.stem + ".png")
         cv2.imwrite(mask_path, mask)
 
         if args.visualize:
             vis_mask = visualize_mask(mask)
-            vis_mask_path = os.path.join(vis_output_folder, image_name.split(".")[0] + ".png")
+            vis_mask_path = os.path.join(vis_output_folder, fp_image.stem + ".png")
             cv2.imwrite(vis_mask_path, vis_mask)

@@ -1,8 +1,8 @@
 {
     "sam":
     {
-        "sam_encoder_version": "vit_h",
-        "sam_checkpoint_path": "/ssd1/wjlyu/Gaga/weight/sam_vit_h_4b8939.pth",
+        "sam_encoder_version": "vit_b",
+        "sam_checkpoint_path": "ckpts/sam_vit_b_01ec64.pth",
         "sam_num_points_per_side": 64,
         "sam_num_points_per_batch": 64,
         "sam_pred_iou_threshold": 0.7,
